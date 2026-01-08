@@ -1,0 +1,45 @@
+# docker-compose.yml
+# Avvia con: docker-compose up -d
+
+version: '3.8'
+
+services:
+  # === AGENTE AI ===
+  agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-agent
+    restart: unless-stopped
+    stdin_open: true      # Per CLI interattivo
+    tty: true             # Per CLI interattivo
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - WEATHER_API_KEY=${WEATHER_API_KEY:-}
+      - NOTION_TOKEN=${NOTION_TOKEN:-}
+      - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN:-}
+    volumes:
+      - ./data:/app/data    # Persistenza dati
+    networks:
+      - agent-network
+
+  # === REDIS (per caching, opzionale) ===
+  redis:
+    image: redis:7-alpine
+    container_name: ai-agent-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - agent-network
+    profiles:
+      - full  # Solo con --profile full
+
+volumes:
+  redis-data:
+
+networks:
+  agent-network:
+    driver: bridge

@@ -1,0 +1,23 @@
+# === CORE (OBBLIGATORI) ===
+anthropic>=0.39.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+
+# === API WEB (opzionale) ===
+# fastapi>=0.109.0
+# uvicorn>=0.27.0
+
+# === TASK ASINCRONI (opzionale) ===
+# celery>=5.3.0
+# redis>=5.0.0
+
+# === INTEGRAZIONI (opzionale) ===
+# google-auth-oauthlib>=1.2.0    # Gmail
+# google-api-python-client>=2.0  # Gmail
+# notion-client>=2.2.0           # Notion
+# slack-sdk>=3.27.0              # Slack
+
+# === DATABASE (opzionale) ===
+# sqlalchemy>=2.0.0
+# aiosqlite>=0.19.0
